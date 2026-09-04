@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himanshu Goud — Full-Stack Developer</title>
+<meta name="description" content="Full-stack developer building real, live systems — from an emergency blood donor network to a real-time parking platform. See the projects, and what actually broke along the way.">
+
+<meta property="og:title" content="Himanshu Goud — Full-Stack Developer">
+<meta property="og:description" content="Full-stack developer building real, live systems. See the projects, and what actually broke along the way.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314171A'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%2316A34A'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-name">Himanshu Goud</a>
+    <div class="nav-status">
+      <span class="dot"></span>
+      <span>Available for opportunities</span>
+    </div>
+    <div class="nav-links">
+      <a href="https://github.com/himanshugoud" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/himanshu-goud-hg27/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:himanshugoud638@gmail.com">Email</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-name">Himanshu Goud</h1>
+      <p class="hero-role">I build web systems, put them into production, and go looking for what's still broken.</p>
+
+      <div class="status-panel">
+        <div class="status-row">
+          <span class="dot dot-lg"></span>
+          <span class="status-label">SYSTEM STATUS — available for internships &amp; full-time roles</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num" data-count="2">0</span>
+            <span class="stat-label">production systems shipped</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="100" data-suffix="%">0</span>
+            <span class="stat-label">success rate, 50-write load test</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="17">0</span>
+            <span class="stat-label">automated tests passing</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#work" class="scroll-cue">
+        <span>See the work</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5L7 10L12 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="work" id="work">
+    <div class="section-head">
+      <h2>Two systems, live in production.</h2>
+      <p>Not demos that only run on my laptop. Real users can hit these right now.</p>
+    </div>
+
+    <!-- RaktSetu -->
+    <article class="panel panel-raktsetu" data-tilt>
+      <div class="panel-glow"></div>
+      <div class="panel-media">
+        <img src="assets/raktsetu/homepage.jpg" alt="RaktSetu homepage — emergency blood donor network" loading="lazy">
+      </div>
+      <div class="panel-body">
+        <div class="panel-eyebrow">01 — Emergency response</div>
+        <h3>RaktSetu</h3>
+        <p class="panel-pitch">An emergency blood donor network that finds compatible, nearby donors the moment a request comes in — and gets the requester calling them within seconds, not waiting on email.</p>
+
+        <ul class="panel-facts">
+          <li><strong>10km → 100km</strong> auto-widening donor search radius</li>
+          <li><strong>90-day</strong> donation eligibility window modeled into matching</li>
+          <li><strong>17</strong> automated tests covering compatibility + geo logic</li>
+        </ul>
+
+        <div class="panel-stack">React · Node.js · Express · MongoDB · JWT</div>
+
+        <div class="panel-links">
+          <a href="https://raktsetu-phi.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary">Live demo</a>
+          <a href="https://github.com/himanshugoud/raktsetu" target="_blank" rel="noopener" class="btn btn-ghost">Source</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- SmartPark -->
+    <article class="panel panel-smartpark" data-tilt>
+      <div class="panel-glow"></div>
+      <div class="panel-media">
+        <img src="assets/smartpark/homepage.jpg" alt="SmartPark homepage — real-time parking management" loading="lazy">
+      </div>
+      <div class="panel-body">
+        <div class="panel-eyebrow">02 — Real-time infrastructure</div>
+        <h3>SmartPark</h3>
+        <p class="panel-pitch">A real-time parking management system tracking 300 slots across 3 floors. Every status change pushes instantly to every connected browser — no refresh, no polling.</p>
+
+        <ul class="panel-facts">
+          <li><strong>100%</strong> success rate under a 50 concurrent-write load test</li>
+          <li>Found &amp; fixed a <strong>session-isolation bug</strong> leaking bookings across accounts</li>
+          <li>Write-validated database rules — no login required, zero downtime</li>
+        </ul>
+
+        <div class="panel-stack">JavaScript · Firebase Realtime DB · Firebase Auth · HTML5/CSS3</div>
+
+        <div class="panel-links">
+          <a href="https://smartpark-hg.web.app/" target="_blank" rel="noopener" class="btn btn-primary">Live demo</a>
+          <a href="https://github.com/himanshugoud/smartpark" target="_blank" rel="noopener" class="btn btn-ghost">Source</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ CHANGELOG ============ -->
+  <section class="log">
+    <div class="section-head">
+      <h2>A running log of what I actually fixed.</h2>
+      <p>Most portfolios list features. These are real entries from debugging SmartPark in production — kept honest, not polished after the fact.</p>
+    </div>
+
+    <div class="log-list">
+      <div class="log-entry">
+        <span class="log-tag tag-fix">fix</span>
+        <span class="log-text">Booking data was leaking across user accounts after logout/login — traced to a shared, unfiltered array overwriting per-user state on every page load.</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-tag tag-fix">fix</span>
+        <span class="log-text">Dashboard stats stayed frozen on the previous user's numbers after logout instead of resetting — the update function was silently returning early for logged-out state.</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-tag tag-fix">fix</span>
+        <span class="log-text">Login sessions didn't survive a page refresh unless "Remember Me" was checked — now persists by default, matching every other auth path in the app.</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-tag tag-perf">perf</span>
+        <span class="log-text">Load-tested the live Realtime Database with 50 concurrent writes to a throwaway path — 100% success, zero write conflicts, cleaned up automatically after.</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-tag tag-sec">sec</span>
+        <span class="log-text">Database was fully open to public read/write. Replaced with schema-validated rules — any write must match the real data shape, with zero changes needed to the login flow.</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-tag tag-fix">fix</span>
+        <span class="log-text">"Forgot password" always showed "email sent" — but no email service was ever wired up. Rebuilt it into a real, working in-app reset instead of a message that went nowhere.</span>
+      </div>
+      <div class="log-entry">
+        <span class="log-tag tag-fix">fix</span>
+        <span class="log-text">Shared links on WhatsApp/LinkedIn showed a blurry page screenshot instead of a real preview — added proper Open Graph tags and a designed share image.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT / STACK ============ -->
+  <section class="about">
+    <div class="about-grid">
+      <div>
+        <h2>How I actually work.</h2>
+        <p>I'd rather ship something small and load-test it than ship something big and hope. Most of what's above came from going back into working code, finding what was actually wrong, and fixing the real cause instead of the symptom. That habit matters more to me than any single framework.</p>
+        <p>Currently a Mathematics &amp; Computing student at Madhav Institute of Technology and Science, Gwalior.</p>
+      </div>
+      <div class="stack-block">
+        <div class="stack-row"><span>Languages</span><span>C · JavaScript</span></div>
+        <div class="stack-row"><span>Frontend</span><span>React · HTML5 · CSS3 · Tailwind</span></div>
+        <div class="stack-row"><span>Backend</span><span>Node.js · Express · Firebase</span></div>
+        <div class="stack-row"><span>Data</span><span>MongoDB · Firebase Realtime DB</span></div>
+        <div class="stack-row"><span>Tools</span><span>Git · GitHub · VS Code · Postman</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-name">Himanshu Goud</div>
+      <div class="footer-line">Gwalior, Madhya Pradesh, India</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:himanshugoud638@gmail.com">himanshugoud638@gmail.com</a>
+      <a href="https://github.com/himanshugoud" target="_blank" rel="noopener">github.com/himanshugoud</a>
+      <a href="https://www.linkedin.com/in/himanshu-goud-hg27/" target="_blank" rel="noopener">linkedin.com/in/himanshu-goud-hg27</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
