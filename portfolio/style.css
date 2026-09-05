@@ -892,3 +892,48 @@ img { max-width: 100%; display: block; }
   .footer2-inner { flex-direction: column; align-items: flex-start; }
   .footer2-links { text-align: left; }
 }
+
+/* ============================================================
+   DAY 5 — POLISH: micro-interactions + reveal stagger
+   ============================================================ */
+
+/* Arrow nudge — every "→"/"↗" link gets a tiny consistent lift */
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.nav2-cta:hover .arrow,
+.hero2-cta:hover .arrow,
+.work2-viewall:hover .arrow,
+.work2-links a:hover .arrow {
+  transform: translate(3px, -3px);
+}
+
+/* Nav links — underline slides in from the left instead of a
+   flat opacity change */
+.nav2-links a {
+  position: relative;
+  opacity: 1;
+}
+.nav2-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: var(--hero-text);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s ease;
+}
+.nav2-links a:hover { opacity: 1; }
+.nav2-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* Work cards — slight stagger so they don't land in lockstep */
+.work2-grid .work2-card:nth-child(1) { transition-delay: 0s; }
+.work2-grid .work2-card:nth-child(2) { transition-delay: 0.08s; }
+
+/* Custom cursor reticle — now actually driven by script.js.
+   Hidden until the first mousemove, and only on fine pointers. */
+.reticle { transition: width 0.18s, height 0.18s, opacity 0.18s, border-color 0.18s, transform 0.05s linear; }

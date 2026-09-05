@@ -100,4 +100,31 @@ document.addEventListener('DOMContentLoaded', () => {
     animateStats();
     setupPanelTilt();
     setupRevealObserver();
+    setupReticle();
 });
+
+// ============================================================
+// Custom cursor reticle — follows the pointer and expands over
+// clickable elements. Was markup-only before (no JS drove it),
+// so it never appeared; wiring it up here.
+// ============================================================
+function setupReticle() {
+    const reticle = document.getElementById('reticle');
+    if (!reticle || prefersReducedMotion || window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+        return;
+    }
+    let active = false;
+    window.addEventListener('mousemove', (e) => {
+        if (!active) {
+            active = true;
+            reticle.classList.add('is-active');
+        }
+        reticle.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    });
+    const hoverables = document.querySelectorAll('a, button, .work2-card, [role="button"]');
+    hoverables.forEach(el => {
+        el.addEventListener('mouseenter', () => reticle.classList.add('is-hover'));
+        el.addEventListener('mouseleave', () => reticle.classList.remove('is-hover'));
+    });
+    window.addEventListener('mouseleave', () => reticle.classList.remove('is-active'));
+}
