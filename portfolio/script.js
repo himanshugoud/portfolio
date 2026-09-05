@@ -28,50 +28,11 @@ function animateStats() {
     });
 }
 
-// ============================================================
-// Project panel tilt + glow — the pointer-reactive "3D" moment.
-// Only runs on devices with a real mouse (not touch), and only
-// while the pointer is actually over a given panel.
-// ============================================================
-function setupPanelTilt() {
-    if (prefersReducedMotion) return;
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+// (Old pointer-tilt effect for the dark project panels lived here —
+// removed since Day 2 replaced those panels with the .work2-card
+// grid. Keeping the function around no-oped silently since its
+// .panel[data-tilt] selector matches nothing anymore.)
 
-    document.querySelectorAll('.panel[data-tilt]').forEach(panel => {
-        const media = panel.querySelector('.panel-media');
-        const body = panel.querySelector('.panel-body');
-        const glow = panel.querySelector('.panel-glow');
-
-        panel.addEventListener('mousemove', (e) => {
-            const rect = panel.getBoundingClientRect();
-            const px = (e.clientX - rect.left) / rect.width;
-            const py = (e.clientY - rect.top) / rect.height;
-
-            const maxTilt = 2.5; // degrees — kept subtle, tactile rather than gimmicky
-            const rx = (px - 0.5) * maxTilt * 2;
-            const ry = (py - 0.5) * -maxTilt * 2;
-
-            [media, body].forEach(el => {
-                if (!el) return;
-                el.style.setProperty('--rx', `${rx}deg`);
-                el.style.setProperty('--ry', `${ry}deg`);
-            });
-
-            if (glow) {
-                glow.style.setProperty('--gx', `${px * 100}%`);
-                glow.style.setProperty('--gy', `${py * 100}%`);
-            }
-        });
-
-        panel.addEventListener('mouseleave', () => {
-            [media, body].forEach(el => {
-                if (!el) return;
-                el.style.setProperty('--rx', '0deg');
-                el.style.setProperty('--ry', '0deg');
-            });
-        });
-    });
-}
 
 // ============================================================
 // Scroll reveal — watches .reveal elements and adds .is-visible
@@ -98,7 +59,6 @@ function setupRevealObserver() {
 
 document.addEventListener('DOMContentLoaded', () => {
     animateStats();
-    setupPanelTilt();
     setupRevealObserver();
     setupReticle();
 });
