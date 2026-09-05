@@ -61,7 +61,87 @@ document.addEventListener('DOMContentLoaded', () => {
     animateStats();
     setupRevealObserver();
     setupReticle();
+    setupLightbox();
 });
+
+// ============================================================
+// Work gallery lightbox (Day 8) — opens the screenshot set for
+// a project when its card image or a thumbnail is clicked.
+// Supports Esc / arrow keys / backdrop click.
+// ============================================================
+function setupLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+
+    const imgEl = document.getElementById('lightboxImg');
+    const captionEl = document.getElementById('lightboxCaption');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+
+    let images = [];
+    let captions = [];
+    let title = '';
+    let index = 0;
+    let lastFocused = null;
+
+    function render() {
+        imgEl.src = images[index];
+        imgEl.alt = `${title} screenshot ${index + 1} of ${images.length}`;
+        captionEl.textContent = captions[index] || `${title} — ${index + 1} / ${images.length}`;
+    }
+
+    function open(gallerySrc, galleryTitle, galleryCaptions, startIndex) {
+        images = gallerySrc.split(',').map(s => s.trim()).filter(Boolean);
+        captions = (galleryCaptions || '').split(',').map(s => s.trim());
+        title = galleryTitle || '';
+        index = startIndex || 0;
+        lastFocused = document.activeElement;
+        render();
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocused) lastFocused.focus();
+    }
+
+    function step(delta) {
+        index = (index + delta + images.length) % images.length;
+        render();
+    }
+
+    document.querySelectorAll('[data-gallery]').forEach(card => {
+        card.addEventListener('click', () => {
+            open(card.dataset.gallery, card.dataset.galleryTitle, card.dataset.galleryCaptions, 0);
+        });
+    });
+
+    document.querySelectorAll('[data-gallery-index]').forEach(thumb => {
+        const card = thumb.closest('.work2-card')?.querySelector('[data-gallery]');
+        if (!card) return;
+        thumb.addEventListener('click', () => {
+            open(card.dataset.gallery, card.dataset.galleryTitle, card.dataset.galleryCaptions, Number(thumb.dataset.galleryIndex));
+        });
+    });
+
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', () => step(-1));
+    nextBtn.addEventListener('click', () => step(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') step(-1);
+        if (e.key === 'ArrowRight') step(1);
+    });
+}
 
 // ============================================================
 // Custom cursor reticle — follows the pointer and expands over
