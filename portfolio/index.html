@@ -156,40 +156,50 @@
   </section>
 
   <!-- ============ CHANGELOG ============ -->
-  <section class="log" id="log">
-    <div class="section-head reveal">
-      <h2>A running log of what I actually fixed.</h2>
+  <section class="log2" id="log">
+    <div class="log2-head reveal">
+      <div class="log2-head-top">
+        <span class="log2-ghost" aria-hidden="true">LOG</span>
+        <h2 class="log2-title">/CHANGELOG</h2>
+      </div>
       <p>Most portfolios list features. These are real entries from debugging SmartPark in production — kept honest, not polished after the fact.</p>
     </div>
 
-    <div class="log-list reveal">
-      <div class="log-entry">
-        <span class="log-tag tag-fix">fix</span>
-        <span class="log-text">Booking data was leaking across user accounts after logout/login — traced to a shared, unfiltered array overwriting per-user state on every page load.</span>
+    <div class="log2-card console reveal">
+      <div class="log2-card-head">
+        <span class="log2-card-title">/RECENT FIXES</span>
+        <span class="log2-count">7 entries</span>
       </div>
-      <div class="log-entry">
-        <span class="log-tag tag-fix">fix</span>
-        <span class="log-text">Dashboard stats stayed frozen on the previous user's numbers after logout instead of resetting — the update function was silently returning early for logged-out state.</span>
-      </div>
-      <div class="log-entry">
-        <span class="log-tag tag-fix">fix</span>
-        <span class="log-text">Login sessions didn't survive a page refresh unless "Remember Me" was checked — now persists by default, matching every other auth path in the app.</span>
-      </div>
-      <div class="log-entry">
-        <span class="log-tag tag-perf">perf</span>
-        <span class="log-text">Load-tested the live Realtime Database with 50 concurrent writes to a throwaway path — 100% success, zero write conflicts, cleaned up automatically after.</span>
-      </div>
-      <div class="log-entry">
-        <span class="log-tag tag-sec">sec</span>
-        <span class="log-text">Database was fully open to public read/write. Replaced with schema-validated rules — any write must match the real data shape, with zero changes needed to the login flow.</span>
-      </div>
-      <div class="log-entry">
-        <span class="log-tag tag-fix">fix</span>
-        <span class="log-text">"Forgot password" always showed "email sent" — but no email service was ever wired up. Rebuilt it into a real, working in-app reset instead of a message that went nowhere.</span>
-      </div>
-      <div class="log-entry">
-        <span class="log-tag tag-fix">fix</span>
-        <span class="log-text">Shared links on WhatsApp/LinkedIn showed a blurry page screenshot instead of a real preview — added proper Open Graph tags and a designed share image.</span>
+
+      <div class="log2-list">
+        <div class="log2-entry">
+          <span class="log2-tag tag-fix">fix</span>
+          <span class="log2-text">Booking data was leaking across user accounts after logout/login — traced to a shared, unfiltered array overwriting per-user state on every page load.</span>
+        </div>
+        <div class="log2-entry">
+          <span class="log2-tag tag-fix">fix</span>
+          <span class="log2-text">Dashboard stats stayed frozen on the previous user's numbers after logout instead of resetting — the update function was silently returning early for logged-out state.</span>
+        </div>
+        <div class="log2-entry">
+          <span class="log2-tag tag-fix">fix</span>
+          <span class="log2-text">Login sessions didn't survive a page refresh unless "Remember Me" was checked — now persists by default, matching every other auth path in the app.</span>
+        </div>
+        <div class="log2-entry">
+          <span class="log2-tag tag-perf">perf</span>
+          <span class="log2-text">Load-tested the live Realtime Database with 50 concurrent writes to a throwaway path — 100% success, zero write conflicts, cleaned up automatically after.</span>
+        </div>
+        <div class="log2-entry">
+          <span class="log2-tag tag-sec">sec</span>
+          <span class="log2-text">Database was fully open to public read/write. Replaced with schema-validated rules — any write must match the real data shape, with zero changes needed to the login flow.</span>
+        </div>
+        <div class="log2-entry">
+          <span class="log2-tag tag-fix">fix</span>
+          <span class="log2-text">"Forgot password" always showed "email sent" — but no email service was ever wired up. Rebuilt it into a real, working in-app reset instead of a message that went nowhere.</span>
+        </div>
+        <div class="log2-entry">
+          <span class="log2-tag tag-fix">fix</span>
+          <span class="log2-text">Shared links on WhatsApp/LinkedIn showed a blurry page screenshot instead of a real preview — added proper Open Graph tags and a designed share image.</span>
+        </div>
       </div>
     </div>
   </section>

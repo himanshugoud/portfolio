@@ -647,37 +647,98 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================================
-   CHANGELOG
+   CHANGELOG — Day 3: light section header (matches Work),
+   entries live inside a dark console card — the same pattern
+   the reference uses for its Experience block.
    ============================================================ */
-.log {
+.log2 {
   position: relative;
   z-index: 1;
-  padding: 6rem 0;
-  border-top: 1px solid var(--line);
+  background: var(--hero-bg);
+  padding: 1rem 1.5rem 6rem;
 }
-.log .section-head { margin-bottom: 2.75rem; }
+.log2-head {
+  max-width: var(--max-wide);
+  margin: 0 auto 2.5rem;
+}
+.log2-head-top {
+  position: relative;
+  padding-top: 2.4rem;
+}
+.log2-ghost {
+  position: absolute;
+  top: -1.6rem;
+  left: -0.1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 8vw, 5.2rem);
+  color: var(--hero-line);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.log2-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+  color: var(--hero-text);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.8rem;
+}
+.log2-head p {
+  color: var(--hero-text-soft);
+  max-width: 60ch;
+  font-size: 0.98rem;
+}
 
-.log-list {
-  max-width: var(--max);
+.log2-card {
+  max-width: var(--max-wide);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 2rem 2rem 0.5rem;
+  border-radius: 20px;
 }
-.log-entry {
+.log2-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.4rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+.log2-card-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  font-weight: 500;
+}
+.log2-count {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-faint);
+}
+
+.log2-list { padding-bottom: 0.5rem; }
+.log2-entry {
   display: flex;
   gap: 1.1rem;
   padding: 1.15rem 0;
   border-top: 1px solid var(--line);
   align-items: baseline;
 }
-.log-list .log-entry:last-child { border-bottom: 1px solid var(--line); }
+.log2-list .log2-entry:last-child { border-bottom: none; }
 
-.log-tag {
+.log2-tag {
   flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 500;
   padding: 0.18rem 0.55rem;
-  border-radius: 2px;
+  border-radius: 999px;
   text-transform: lowercase;
   width: 3.4rem;
   text-align: center;
@@ -685,12 +746,12 @@ img { max-width: 100%; display: block; }
 .tag-fix { background: var(--signal-soft); color: var(--signal); }
 .tag-perf { background: var(--smartpark-soft); color: var(--smartpark); }
 .tag-sec { background: var(--raktsetu-soft); color: var(--raktsetu); }
-
-.log-text { font-size: 0.93rem; color: var(--text-soft); }
-.log-text strong, .log-entry strong { color: var(--text); }
+.log2-text { font-size: 0.93rem; color: var(--text-soft); }
 
 @media (max-width: 620px) {
-  .log-entry { flex-direction: column; gap: 0.5rem; }
+  .log2-entry { flex-direction: column; gap: 0.5rem; }
+  .log2-head-top { padding-top: 0; }
+  .log2-ghost { display: none; }
 }
 
 /* ============================================================
