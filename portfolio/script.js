@@ -73,7 +73,31 @@ function setupPanelTilt() {
     });
 }
 
+// ============================================================
+// Scroll reveal — watches .reveal elements and adds .is-visible
+// once they enter the viewport. (Bug fix: this observer was
+// missing entirely, so .reveal content — including the new
+// Work cards — never appeared unless reduced-motion was on.)
+// ============================================================
+function setupRevealObserver() {
+    const revealEls = document.querySelectorAll('.reveal');
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        revealEls.forEach(el => el.classList.add('is-visible'));
+        return;
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     animateStats();
     setupPanelTilt();
+    setupRevealObserver();
 });
