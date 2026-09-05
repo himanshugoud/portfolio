@@ -755,78 +755,140 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================================
-   ABOUT / STACK
+   ABOUT / STACK — Day 4: light section, big bold rows for the
+   stack (same large-row language as the reference Service list)
    ============================================================ */
-.about {
+.about2 {
   position: relative;
   z-index: 1;
-  padding: 6rem 0 7rem;
-  border-top: 1px solid var(--line);
+  background: var(--hero-bg);
+  padding: 1rem 1.5rem 6rem;
 }
-.about-grid {
+.about2-head {
   max-width: var(--max-wide);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 4rem;
+  margin: 0 auto 3rem;
 }
-.about h2 {
+.about2-head-top {
+  position: relative;
+  padding-top: 2.4rem;
+}
+.about2-ghost {
+  position: absolute;
+  top: -1.6rem;
+  left: -0.1rem;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 8vw, 5.2rem);
+  color: var(--hero-line);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.about2-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+  color: var(--hero-text);
+  letter-spacing: -0.01em;
   margin-bottom: 1.1rem;
 }
-.about p {
-  color: var(--text-soft);
-  max-width: 56ch;
-  margin-bottom: 1rem;
+.about2-lede {
+  color: var(--hero-text-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 68ch;
+  margin-bottom: 0.9rem;
+}
+.about2-note {
+  color: var(--hero-text-soft);
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
 
-.stack-block { align-self: start; padding: 1.5rem 1.75rem; }
-.stack-row {
+.about2-stack {
+  max-width: var(--max-wide);
+  margin: 0 auto;
+  border-top: 1px solid var(--hero-line);
+}
+.about2-row {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.75rem 0;
-  border-top: 1px solid var(--line);
-  font-size: 0.89rem;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 1.5rem 0.2rem;
+  border-bottom: 1px solid var(--hero-line);
+  transition: padding-left 0.2s;
 }
-.stack-block .stack-row:first-child { border-top: none; }
-.stack-row span:first-child { color: var(--text-faint); font-family: var(--font-mono); font-size: 0.78rem; }
-.stack-row span:last-child { color: var(--text); font-weight: 500; text-align: right; }
+.about2-row:hover { padding-left: 0.6rem; }
+.about2-row-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  color: var(--hero-text);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.about2-row-value {
+  font-size: 0.92rem;
+  color: var(--hero-text-soft);
+  text-align: right;
+  flex-shrink: 0;
+}
 
-@media (max-width: 780px) {
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+@media (max-width: 620px) {
+  .about2-row { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .about2-row-value { text-align: left; }
+  .about2-head-top { padding-top: 0; }
+  .about2-ghost { display: none; }
 }
 
 /* ============================================================
-   FOOTER
+   FOOTER — Day 4: light, matches the rest of the page now
    ============================================================ */
-.footer { position: relative; z-index: 1; border-top: 1px solid var(--line); padding: 3rem 0; }
-.footer-inner {
+.footer2 {
+  position: relative;
+  z-index: 1;
+  background: var(--hero-bg);
+  border-top: 1px solid var(--hero-line);
+  padding: 3rem 1.5rem;
+}
+.footer2-inner {
   max-width: var(--max-wide);
   margin: 0 auto;
-  padding: 0 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 2rem;
   flex-wrap: wrap;
 }
-.footer-name { font-family: var(--font-display); font-weight: 600; }
-.footer-line { color: var(--text-faint); font-size: 0.87rem; margin-top: 0.2rem; }
-.footer-links {
+.footer2-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--hero-text);
+}
+.footer2-line {
+  color: var(--hero-text-soft);
+  font-size: 0.87rem;
+  margin-top: 0.2rem;
+}
+.footer2-links {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   font-size: 0.87rem;
   text-align: right;
 }
-.footer-links a { color: var(--text-soft); transition: color 0.15s; }
-.footer-links a:hover { color: var(--signal); }
+.footer2-links a {
+  color: var(--hero-text-soft);
+  transition: color 0.15s;
+}
+.footer2-links a:hover { color: var(--hero-text); }
 
 @media (max-width: 560px) {
-  .footer-inner { flex-direction: column; align-items: flex-start; }
-  .footer-links { text-align: left; }
+  .footer2-inner { flex-direction: column; align-items: flex-start; }
+  .footer2-links { text-align: left; }
 }
