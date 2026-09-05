@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314171A'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%2316A34A'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308090A'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%2334D399'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,71 +21,92 @@
 </head>
 <body>
 
+<div class="field"></div>
 <div class="grain"></div>
+<div class="reticle" id="reticle"></div>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a href="#top" class="nav-name">Himanshu Goud</a>
-    <div class="nav-status">
-      <span class="dot"></span>
+<header class="nav2">
+  <div class="nav2-inner">
+    <div class="nav2-status">
+      <span class="dot-live"></span>
       <span>Available for opportunities</span>
     </div>
-    <div class="nav-links">
-      <a href="https://github.com/himanshugoud" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/himanshu-goud-hg27/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:himanshugoud638@gmail.com">Email</a>
-    </div>
+    <nav class="nav2-links">
+      <a href="#work">Work <span class="nav2-count">[2]</span></a>
+      <a href="#log">Log <span class="nav2-count">[7]</span></a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="mailto:himanshugoud638@gmail.com" class="nav2-cta">Let's Talk ↗</a>
   </div>
 </header>
 
 <main id="top">
 
   <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-name">Himanshu Goud</h1>
-      <p class="hero-role">I build web systems, put them into production, and go looking for what's still broken.</p>
+  <section class="hero2">
+    <div class="hero2-name-row">
+      <span class="name-part name-outline">HIMANSHU</span>
+      <div class="hero2-photo">
+        <!-- Day-1 placeholder — replace with: <img src="assets/profile.jpg" alt="Himanshu Goud"> -->
+        <span class="avatar-fallback">HG</span>
+      </div>
+      <span class="name-part name-solid">GOUD</span>
+    </div>
 
-      <div class="status-panel">
-        <div class="status-row">
-          <span class="dot dot-lg"></span>
-          <span class="status-label">SYSTEM STATUS — available for internships &amp; full-time roles</span>
+    <div class="hero2-body">
+      <div class="hero2-left">
+        <div class="hero2-role">Full-Stack Developer</div>
+        <p class="hero2-desc">I build web systems, put them into production, and go looking for what's still broken.</p>
+        <a href="#work" class="hero2-cta">Let's collaborate ↗</a>
+      </div>
+      <div class="hero2-social">
+        <a href="https://github.com/himanshugoud" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/himanshu-goud-hg27/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:himanshugoud638@gmail.com">Email</a>
+      </div>
+    </div>
+
+    <div class="status-panel console hero2-stats">
+      <div class="status-row">
+        <span class="dot dot-lg"></span>
+        <span class="status-label">SYSTEM STATUS — available for internships &amp; full-time roles</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num" data-count="2">0</span>
+          <span class="stat-label">production systems shipped</span>
         </div>
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-num" data-count="2">0</span>
-            <span class="stat-label">production systems shipped</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="100" data-suffix="%">0</span>
-            <span class="stat-label">success rate, 50-write load test</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="17">0</span>
-            <span class="stat-label">automated tests passing</span>
-          </div>
+        <div class="stat">
+          <span class="stat-num" data-count="100" data-suffix="%">0</span>
+          <span class="stat-label">success rate, 50-write load test</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="17">0</span>
+          <span class="stat-label">automated tests passing</span>
         </div>
       </div>
-
-      <a href="#work" class="scroll-cue">
-        <span>See the work</span>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5L7 10L12 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
     </div>
   </section>
 
   <!-- ============ PROJECTS ============ -->
   <section class="work" id="work">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>Two systems, live in production.</h2>
       <p>Not demos that only run on my laptop. Real users can hit these right now.</p>
     </div>
 
     <!-- RaktSetu -->
-    <article class="panel panel-raktsetu" data-tilt>
+    <article class="panel panel-raktsetu reveal" data-tilt>
       <div class="panel-glow"></div>
-      <div class="panel-media">
-        <img src="assets/raktsetu/homepage.jpg" alt="RaktSetu homepage — emergency blood donor network" loading="lazy">
+      <div class="panel-media console">
+        <div class="panel-media-main">
+          <img src="assets/raktsetu/homepage.jpg" alt="RaktSetu homepage — emergency blood donor network" loading="lazy">
+        </div>
+        <div class="panel-media-strip">
+          <img src="assets/raktsetu/request-flow.jpg" alt="RaktSetu request flow" loading="lazy">
+          <img src="assets/raktsetu/dashboard.jpg" alt="RaktSetu dashboard" loading="lazy">
+        </div>
       </div>
       <div class="panel-body">
         <div class="panel-eyebrow">01 — Emergency response</div>
@@ -108,10 +129,16 @@
     </article>
 
     <!-- SmartPark -->
-    <article class="panel panel-smartpark" data-tilt>
+    <article class="panel panel-smartpark reveal" data-tilt>
       <div class="panel-glow"></div>
-      <div class="panel-media">
-        <img src="assets/smartpark/homepage.jpg" alt="SmartPark homepage — real-time parking management" loading="lazy">
+      <div class="panel-media console">
+        <div class="panel-media-main">
+          <img src="assets/smartpark/homepage.jpg" alt="SmartPark homepage — real-time parking management" loading="lazy">
+        </div>
+        <div class="panel-media-strip">
+          <img src="assets/smartpark/dashboard.jpg" alt="SmartPark dashboard" loading="lazy">
+          <img src="assets/smartpark/parking-status.jpg" alt="SmartPark live parking status" loading="lazy">
+        </div>
       </div>
       <div class="panel-body">
         <div class="panel-eyebrow">02 — Real-time infrastructure</div>
@@ -135,13 +162,13 @@
   </section>
 
   <!-- ============ CHANGELOG ============ -->
-  <section class="log">
-    <div class="section-head">
+  <section class="log" id="log">
+    <div class="section-head reveal">
       <h2>A running log of what I actually fixed.</h2>
       <p>Most portfolios list features. These are real entries from debugging SmartPark in production — kept honest, not polished after the fact.</p>
     </div>
 
-    <div class="log-list">
+    <div class="log-list reveal">
       <div class="log-entry">
         <span class="log-tag tag-fix">fix</span>
         <span class="log-text">Booking data was leaking across user accounts after logout/login — traced to a shared, unfiltered array overwriting per-user state on every page load.</span>
@@ -174,14 +201,14 @@
   </section>
 
   <!-- ============ ABOUT / STACK ============ -->
-  <section class="about">
+  <section class="about" id="about">
     <div class="about-grid">
-      <div>
+      <div class="reveal">
         <h2>How I actually work.</h2>
         <p>I'd rather ship something small and load-test it than ship something big and hope. Most of what's above came from going back into working code, finding what was actually wrong, and fixing the real cause instead of the symptom. That habit matters more to me than any single framework.</p>
         <p>Currently a Mathematics &amp; Computing student at Madhav Institute of Technology and Science, Gwalior.</p>
       </div>
-      <div class="stack-block">
+      <div class="stack-block console reveal">
         <div class="stack-row"><span>Languages</span><span>C · JavaScript</span></div>
         <div class="stack-row"><span>Frontend</span><span>React · HTML5 · CSS3 · Tailwind</span></div>
         <div class="stack-row"><span>Backend</span><span>Node.js · Express · Firebase</span></div>
@@ -193,7 +220,7 @@
 
 </main>
 
-<footer class="footer">
+<footer class="footer" id="contact">
   <div class="footer-inner">
     <div>
       <div class="footer-name">Himanshu Goud</div>
