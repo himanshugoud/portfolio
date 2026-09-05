@@ -15,7 +15,7 @@
 
   --text: #E9EFE7;
   --text-soft: #93A091;
-  --text-faint: #576057;
+  --text-faint: #818781; /* Day 9: lightened from #576057 — was 3.05:1 on --bg, failed WCAG AA (needs 4.5:1) for the stat labels and log entry count that use it. Now 5.4:1. */
 
   --signal: #34D399;
   --signal-dim: #1C7A57;
@@ -39,7 +39,7 @@
   --hero-bg: #F4F2ED;
   --hero-card: #FFFFFF;
   --hero-text: #14161A;
-  --hero-text-soft: #6B7178;
+  --hero-text-soft: #62676E; /* Day 9: darkened from #6B7178 — was 4.41:1 on --hero-bg, just under WCAG AA's 4.5:1 for body text used all over (hero copy, card pitches, footer). Now 5.1:1. */
   --hero-line: #E4E1D9;
   --hero-shadow: 0 10px 30px rgba(20, 22, 26, 0.06);
 
