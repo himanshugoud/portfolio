@@ -35,34 +35,129 @@ function animateStats() {
 
 
 // ============================================================
-// Scroll reveal — watches .reveal elements and adds .is-visible
-// once they enter the viewport. (Bug fix: this observer was
-// missing entirely, so .reveal content — including the new
-// Work cards — never appeared unless reduced-motion was on.)
+// Scroll reveal — GSAP for the actual tween (better easing than
+// a flat CSS transition), triggered by IntersectionObserver
+// rather than GSAP's own ScrollTrigger. ScrollTrigger caches
+// scroll-position math on load, which produced a real bug here:
+// jumping straight to a section (nav click, back-forward cache,
+// etc.) instead of scrolling through it left elements stuck at
+// opacity 0 because its cached trigger point never fired.
+// IntersectionObserver has none of that — it just reports what's
+// actually on screen — so it's the more reliable trigger here.
 // ============================================================
-function setupRevealObserver() {
-    const revealEls = document.querySelectorAll('.reveal');
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-        revealEls.forEach(el => el.classList.add('is-visible'));
+function setupScrollReveal() {
+    if (prefersReducedMotion) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
         return;
     }
+    if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+        return;
+    }
+
+    const useGsap = typeof gsap !== 'undefined';
+    const groupSelector = '.work2-grid, .log2-list, .about2-stack';
+    const groupParents = new Set(document.querySelectorAll(groupSelector));
+
+    function animateIn(el) {
+        el.classList.add('is-visible'); // CSS safety net if GSAP is ever unavailable
+        if (useGsap) {
+            gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+        }
+    }
+
+    function animateGroupIn(parent) {
+        parent.classList.add('is-visible'); // in case the parent itself also carries .reveal
+        const items = Array.from(parent.children);
+        items.forEach(i => i.classList.add('is-visible'));
+        if (useGsap) {
+            gsap.fromTo(items, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.1 });
+        }
+    }
+
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                obs.unobserve(entry.target);
-            }
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            if (groupParents.has(el)) animateGroupIn(el);
+            else animateIn(el);
+            obs.unobserve(el);
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.reveal:not(.work2-card)').forEach(el => observer.observe(el));
+    groupParents.forEach(parent => observer.observe(parent));
+}
+
+// ============================================================
+// Hero entrance — the name splits in from either side, the photo
+// scales in, and the rest cascades up. Closer to the reference's
+// motion feel than a flat fade. Runs once, on load.
+// ============================================================
+function setupHeroIntro() {
+    if (prefersReducedMotion || typeof gsap === 'undefined') return;
+
+    const outline = document.querySelector('.name-outline');
+    const solid = document.querySelector('.name-solid');
+    const photo = document.querySelector('.hero2-photo');
+    const left = document.querySelector('.hero2-left');
+    const social = document.querySelector('.hero2-social');
+    const stats = document.querySelector('.hero2-stats');
+    if (!outline || !solid) return;
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.from(outline, { opacity: 0, x: -50, duration: 0.7 })
+      .from(solid, { opacity: 0, x: 50, duration: 0.7 }, '<')
+      .from(photo, { opacity: 0, scale: 0.85, duration: 0.6, ease: 'back.out(1.6)' }, '-=0.35')
+      .from([left, social], { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.25')
+      .from(stats, { opacity: 0, y: 20, duration: 0.5 }, '-=0.2');
+}
+
+// ============================================================
+// Work filter tabs — All / Backend / Realtime. Each project is
+// tagged with its real standout characteristic (see data-category
+// in the HTML) rather than an invented "Exploration" category
+// that wouldn't be true of either project.
+// ============================================================
+function setupWorkFilters() {
+    const tabs = document.querySelectorAll('.work2-filter');
+    const cards = document.querySelectorAll('.work2-card');
+    if (!tabs.length) return;
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const filter = tab.dataset.filter;
+
+            tabs.forEach(t => {
+                t.classList.toggle('is-active', t === tab);
+                t.setAttribute('aria-selected', String(t === tab));
+            });
+
+            cards.forEach(card => {
+                const matches = filter === 'all' || card.dataset.category === filter;
+                if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
+                    if (matches) {
+                        card.classList.remove('is-filtered-out');
+                        gsap.fromTo(card, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35 });
+                    } else {
+                        gsap.to(card, { opacity: 0, y: 10, duration: 0.2, onComplete: () => card.classList.add('is-filtered-out') });
+                    }
+                } else {
+                    card.classList.toggle('is-filtered-out', !matches);
+                }
+            });
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     animateStats();
-    setupRevealObserver();
+    setupHeroIntro();
+    setupScrollReveal();
     setupReticle();
     setupLightbox();
     setupMobileNav();
+    setupWorkFilters();
 });
 
 // ============================================================

@@ -582,6 +582,41 @@ img { max-width: 100%; display: block; }
 }
 .work2-viewall:hover { text-decoration: underline; }
 
+.work2-filters {
+  display: flex;
+  gap: 1.6rem;
+  margin-top: 1.6rem;
+  border-top: 1px solid var(--hero-line);
+  padding-top: 1.2rem;
+}
+.work2-filter {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--hero-text-soft);
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 0.3rem;
+}
+.work2-filter::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--hero-text);
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+.work2-filter:hover { color: var(--hero-text); }
+.work2-filter.is-active { color: var(--hero-text); }
+.work2-filter.is-active::after { transform: scaleX(1); }
+
+.work2-card.is-filtered-out { display: none; }
+
 .work2-grid {
   max-width: var(--max-wide);
   margin: 0 auto;
@@ -920,50 +955,119 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================================
-   FOOTER — Day 4: light, matches the rest of the page now
+   CONTACT CTA — the big closing block the reference has, that
+   was completely missing before (site just faded into a small
+   footer with no equivalent moment).
+   ============================================================ */
+.cta2 {
+  position: relative;
+  z-index: 1;
+  background: var(--hero-bg);
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+}
+.cta2-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--hero-card);
+  border: 1px solid var(--hero-line);
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--hero-text-soft);
+  box-shadow: var(--hero-shadow);
+  margin-bottom: 1.75rem;
+}
+.cta2-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--hero-text);
+  margin-bottom: 1.4rem;
+}
+.cta2-sub {
+  color: var(--hero-text-soft);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: 0 auto 2.2rem;
+}
+.cta2-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--hero-text);
+  color: var(--hero-bg);
+  padding: 1rem 1.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: transform 0.15s;
+}
+.cta2-button:hover { transform: translateY(-2px); }
+
+.cta2-socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 3rem;
+}
+.cta2-me,
+.cta2-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--hero-line);
+  background: var(--hero-card);
+  padding: 0.45rem 1.05rem 0.45rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--hero-text);
+}
+.cta2-socials a {
+  padding: 0.55rem 1.05rem;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.cta2-socials a:hover { border-color: var(--hero-text); transform: translateY(-2px); }
+.cta2-me-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   FOOTER — now just a minimal signature line under the CTA
    ============================================================ */
 .footer2 {
   position: relative;
   z-index: 1;
   background: var(--hero-bg);
   border-top: 1px solid var(--hero-line);
-  padding: 3rem 1.5rem;
+  padding: 1.5rem 1.5rem;
 }
 .footer2-inner {
   max-width: var(--max-wide);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 2rem;
+  align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
-}
-.footer2-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--hero-text);
 }
 .footer2-line {
   color: var(--hero-text-soft);
-  font-size: 0.87rem;
-  margin-top: 0.2rem;
+  font-size: 0.82rem;
 }
-.footer2-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  font-size: 0.87rem;
-  text-align: right;
-}
-.footer2-links a {
-  color: var(--hero-text-soft);
-  transition: color 0.15s;
-}
-.footer2-links a:hover { color: var(--hero-text); }
 
 @media (max-width: 560px) {
-  .footer2-inner { flex-direction: column; align-items: flex-start; }
-  .footer2-links { text-align: left; }
+  .footer2-inner { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
 }
 
 /* ============================================================

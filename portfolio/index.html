@@ -120,11 +120,16 @@
         <p>Two systems, live in production — not demos that only run on my laptop. Real users can hit these right now.</p>
         <a href="https://github.com/himanshugoud" target="_blank" rel="noopener" class="work2-viewall">View all on GitHub <span class="arrow">↗</span></a>
       </div>
+      <div class="work2-filters" role="tablist" aria-label="Filter projects by focus">
+        <button type="button" class="work2-filter is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button type="button" class="work2-filter" data-filter="backend" role="tab" aria-selected="false">Backend</button>
+        <button type="button" class="work2-filter" data-filter="realtime" role="tab" aria-selected="false">Realtime</button>
+      </div>
     </div>
 
     <div class="work2-grid">
       <!-- RaktSetu -->
-      <article class="work2-card reveal">
+      <article class="work2-card reveal" data-category="backend">
         <button type="button" class="work2-media"
                 data-gallery="assets/raktsetu/homepage.jpg,assets/raktsetu/request-flow.jpg,assets/raktsetu/dashboard.jpg"
                 data-gallery-title="RaktSetu"
@@ -161,7 +166,7 @@
       </article>
 
       <!-- SmartPark -->
-      <article class="work2-card reveal">
+      <article class="work2-card reveal" data-category="realtime">
         <button type="button" class="work2-media"
                 data-gallery="assets/smartpark/homepage.jpg,assets/smartpark/login.jpg,assets/smartpark/dashboard.jpg,assets/smartpark/parking-status.jpg"
                 data-gallery-title="SmartPark"
@@ -262,7 +267,7 @@
       <p class="about2-note">Currently a Mathematics &amp; Computing student at Madhav Institute of Technology and Science, Gwalior.</p>
     </div>
 
-    <div class="about2-stack reveal">
+    <div class="about2-stack">
       <div class="about2-row">
         <span class="about2-row-label">Languages</span>
         <span class="about2-row-value">C · JavaScript</span>
@@ -286,19 +291,35 @@
     </div>
   </section>
 
+  <!-- ============ CONTACT CTA — matches the reference's closing block ============ -->
+  <section class="cta2" id="contact">
+    <span class="cta2-badge">
+      <span class="dot-live"></span>
+      Available for opportunities
+    </span>
+    <h2 class="cta2-heading">HAVE A PROJECT<br>IN MIND?</h2>
+    <p class="cta2-sub">I'm looking for internships and full-time roles where I can keep building real, live systems — not just demos. If that's what you're hiring for, let's talk.</p>
+    <a href="mailto:himanshugoud638@gmail.com" class="cta2-button">Contact Me <span class="arrow">↗</span></a>
+
+    <div class="cta2-socials">
+      <span class="cta2-me">
+        <img src="assets/profile.jpg" alt="" class="cta2-me-avatar">
+        Himanshu Goud
+      </span>
+      <a href="https://github.com/himanshugoud" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/himanshu-goud-hg27/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:himanshugoud638@gmail.com">Email</a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="footer2" id="contact">
+<footer class="footer2">
   <div class="footer2-inner">
     <div class="footer2-left">
-      <div class="footer2-name">Himanshu Goud</div>
       <div class="footer2-line">Gwalior, Madhya Pradesh, India</div>
     </div>
-    <div class="footer2-links">
-      <a href="mailto:himanshugoud638@gmail.com">himanshugoud638@gmail.com</a>
-      <a href="https://github.com/himanshugoud" target="_blank" rel="noopener">github.com/himanshugoud</a>
-      <a href="https://www.linkedin.com/in/himanshu-goud-hg27/" target="_blank" rel="noopener">linkedin.com/in/himanshu-goud-hg27</a>
-    </div>
+    <div class="footer2-line">© 2026 Himanshu Goud</div>
   </div>
 </footer>
 
@@ -313,6 +334,9 @@
   <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next screenshot">&#8250;</button>
 </div>
 
+<!-- GSAP — downloaded locally into assets/vendor, not a CDN, so it
+     works offline and doesn't depend on a third-party host staying up -->
+<script src="assets/vendor/gsap.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
