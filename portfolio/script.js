@@ -105,9 +105,7 @@ function setupScrollReveal() {
 function setupHeroIntro() {
     if (prefersReducedMotion || typeof gsap === 'undefined') return;
 
-    const navStatus = document.querySelector('.nav2-status');
-    const navLinks = document.querySelectorAll('.nav2-links a');
-    const navCta = document.querySelector('.nav2-cta');
+    const nav = document.querySelector('.nav2');
     const outline = document.querySelector('.name-outline');
     const solid = document.querySelector('.name-solid');
     const photo = document.querySelector('.hero2-photo');
@@ -122,14 +120,12 @@ function setupHeroIntro() {
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.from([navStatus, ...navLinks, navCta], {
-          opacity: 0,
-          y: -18,
-          duration: 0.9,
-          stagger: 0.08,
-          ease: 'power2.out'
-      })
-      .from(outline, { opacity: 0, x: -40, duration: 0.6 }, '-=0.35')
+    // Nav fades in as ONE unified block — never a staggered,
+    // some-items-visible-some-not state that's easy to mistake for
+    // missing content, whether glanced at mid-animation or on a
+    // slow connection.
+    tl.from(nav, { opacity: 0, y: -16, duration: 0.7, ease: 'power2.out' })
+      .from(outline, { opacity: 0, x: -40, duration: 0.6 }, '-=0.25')
       .from(solid, { opacity: 0, x: 40, duration: 0.6 }, '<')
       .from(socialLinks, { opacity: 0, x: 24, duration: 0.4, stagger: 0.08 }, '-=0.25')
       .from(left, { opacity: 0, y: 24, duration: 0.5 }, '-=0.2')

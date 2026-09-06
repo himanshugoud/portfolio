@@ -361,15 +361,21 @@ img { max-width: 100%; display: block; }
 .hero2-name-row {
   position: relative;
   z-index: 2;
+  text-align: center;
+  /* Reserve space below the text line for the photo to overflow
+     into, without colliding with the role/description text underneath. */
+  padding-bottom: clamp(11rem, 30vw, 22rem);
 }
 .hero2-name-row-h1 {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+  position: relative; /* the photo positions against THIS, not the
+                          padded wrapper above — otherwise "top: 42%"
+                          resolves against the reserved space too and
+                          the photo lands far below the text instead
+                          of overlapping it */
+  z-index: 2;
   margin: 0;
   font-weight: 400;
+  white-space: normal;
 }
 .name-part {
   font-family: var(--font-display);
@@ -384,12 +390,20 @@ img { max-width: 100%; display: block; }
 }
 .name-solid { color: var(--hero-text); }
 
+/* The photo is NOT a layout sibling pushing the name apart — it's
+   an independently positioned layer that overlaps the lower half
+   of the name text, same as the reference. This is the actual fix:
+   flexbox was the wrong tool for "text flows together as one line,
+   image floats on top independently" — that needs absolute
+   positioning against a relatively-positioned wrapper instead. */
 .hero2-photo {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translateX(-50%);
   width: clamp(220px, 30vw, 400px);
-  position: relative;
   z-index: 3;
-  margin-bottom: -1.5rem;
-  pointer-events: none; /* pure image now, not a clickable card */
+  pointer-events: none;
 }
 .hero2-photo-img {
   width: 100%;
