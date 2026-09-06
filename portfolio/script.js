@@ -90,27 +90,51 @@ function setupScrollReveal() {
 }
 
 // ============================================================
-// Hero entrance — the name splits in from either side, the photo
-// scales in, and the rest cascades up. Closer to the reference's
-// motion feel than a flat fade. Runs once, on load.
+// Hero entrance — rebuilt to match the reference's actual
+// sequence (per side-by-side comparison with the demo video):
+//   1. Nav bar + availability badge fade down from the top, slowly
+//   2. Name halves fade in
+//   3. Social pills fade in from the right
+//   4. Role/description/button rise up from below
+//   5. The big photo slides up from the bottom LAST, ending up
+//      layered in front of the name (z-index already handles the
+//      "name sits behind the photo" part — this animates it into
+//      that position instead of just appearing there).
+// Runs once, on load.
 // ============================================================
 function setupHeroIntro() {
     if (prefersReducedMotion || typeof gsap === 'undefined') return;
 
+    const navStatus = document.querySelector('.nav2-status');
+    const navLinks = document.querySelectorAll('.nav2-links a');
+    const navCta = document.querySelector('.nav2-cta');
     const outline = document.querySelector('.name-outline');
     const solid = document.querySelector('.name-solid');
     const photo = document.querySelector('.hero2-photo');
     const left = document.querySelector('.hero2-left');
-    const social = document.querySelector('.hero2-social');
+    const socialLinks = document.querySelectorAll('.hero2-social a');
     const stats = document.querySelector('.hero2-stats');
     if (!outline || !solid) return;
 
+    // Start the photo well below its final position so it has real
+    // distance to travel "up from the bottom"
+    if (photo) gsap.set(photo, { y: 140, opacity: 0 });
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from(outline, { opacity: 0, x: -50, duration: 0.7 })
-      .from(solid, { opacity: 0, x: 50, duration: 0.7 }, '<')
-      .from(photo, { opacity: 0, scale: 0.85, duration: 0.6, ease: 'back.out(1.6)' }, '-=0.35')
-      .from([left, social], { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.25')
-      .from(stats, { opacity: 0, y: 20, duration: 0.5 }, '-=0.2');
+
+    tl.from([navStatus, ...navLinks, navCta], {
+          opacity: 0,
+          y: -18,
+          duration: 0.9,
+          stagger: 0.08,
+          ease: 'power2.out'
+      })
+      .from(outline, { opacity: 0, x: -40, duration: 0.6 }, '-=0.35')
+      .from(solid, { opacity: 0, x: 40, duration: 0.6 }, '<')
+      .from(socialLinks, { opacity: 0, x: 24, duration: 0.4, stagger: 0.08 }, '-=0.25')
+      .from(left, { opacity: 0, y: 24, duration: 0.5 }, '-=0.2')
+      .to(photo, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, '-=0.15')
+      .from(stats, { opacity: 0, y: 20, duration: 0.5 }, '-=0.3');
 }
 
 // ============================================================
