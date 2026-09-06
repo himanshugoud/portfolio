@@ -277,9 +277,72 @@ img { max-width: 100%; display: block; }
 }
 .nav2-cta:hover { transform: translateY(-2px); }
 
+/* ============================================================
+   Day 11: mobile hamburger menu — .nav2-links was simply hidden
+   below 900px with nothing replacing it, so Work/Log/About/
+   Contact were completely unreachable from the nav on mobile.
+   ============================================================ */
+.nav2-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--hero-line);
+  background: var(--hero-card);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nav2-toggle span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--hero-text);
+  transition: transform 0.25s, opacity 0.2s;
+}
+.nav2-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav2-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav2-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav2-mobile-panel {
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: var(--max-wide);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+}
+.nav2-mobile-panel.is-open {
+  display: flex;
+  max-height: 260px;
+  padding-bottom: 1rem;
+}
+.nav2-mobile-panel a {
+  padding: 0.85rem 0.2rem;
+  border-top: 1px solid var(--hero-line);
+  color: var(--hero-text);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   .nav2-links { display: none; }
+  .nav2-toggle { display: flex; }
+  .nav2-inner { gap: 0.6rem; }
 }
+@media (max-width: 480px) {
+  /* status pill + CTA + hamburger no longer all fit at once —
+     drop the status text and keep just the live dot */
+  .nav2-status span:last-child { display: none; }
+  .nav2-status { padding: 0.5rem; }
+}
+
 
 /* ============================================================
    HERO — Day 1: light hero, split bold name + photo panel,

@@ -62,7 +62,46 @@ document.addEventListener('DOMContentLoaded', () => {
     setupRevealObserver();
     setupReticle();
     setupLightbox();
+    setupMobileNav();
 });
+
+// ============================================================
+// Mobile nav toggle (Day 11) — .nav2-links has no equivalent
+// below 900px, so this dropdown is the only way to reach
+// Work/Log/About/Contact from the nav on a phone.
+// ============================================================
+function setupMobileNav() {
+    const toggle = document.getElementById('navToggle');
+    const panel = document.getElementById('navMobilePanel');
+    if (!toggle || !panel) return;
+
+    function setOpen(open) {
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        panel.classList.toggle('is-open', open);
+    }
+
+    toggle.addEventListener('click', () => {
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Close after picking a link, and on Escape
+    panel.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => setOpen(false));
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+
+    // Collapse automatically if the viewport grows past the
+    // mobile breakpoint (e.g. rotating a tablet to landscape)
+    window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
+        if (e.matches) setOpen(false);
+    });
+}
 
 // ============================================================
 // Work gallery lightbox (Day 8) — opens the screenshot set for
