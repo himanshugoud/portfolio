@@ -4,6 +4,85 @@
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ============================================================
+// Auto-fit the hero name to span (almost) the full container
+// width, like the reference — rather than guessing a clamp()
+// value that only happens to work for one name length at one
+// screen size, this measures the actual rendered text width and
+// scales font-size to match the available space exactly. Runs on
+// load (after fonts are ready, so the measurement is accurate)
+// and again on resize.
+// ============================================================
+function fitHeroName() {
+    const h1 = document.querySelector('.hero2-name-row-h1');
+    const container = document.querySelector('.hero2-name-row');
+    if (!h1 || !container) return;
+
+    const TEST_SIZE = 100; // px — arbitrary known baseline to measure at
+    const FILL_RATIO = 0.98; // tiny breathing room so letters don't touch the edges
+
+    // A block-level h1 always reports scrollWidth == its own layout
+    // width (i.e. the full container width) whenever the text ISN'T
+    // already overflowing — that's not the text's natural width, so
+    // measuring it directly here always returned "already full width"
+    // even when the actual glyphs were much narrower. Temporarily
+    // shrink-wrapping it to its content is what makes the measurement
+    // meaningful.
+    const prevDisplay = h1.style.display;
+    const prevWhiteSpace = h1.style.whiteSpace;
+    h1.style.display = 'inline-block';
+    h1.style.whiteSpace = 'nowrap';
+    h1.style.fontSize = TEST_SIZE + 'px';
+
+    const textWidth = h1.scrollWidth; // photo inside is position:absolute, so it doesn't affect this
+    const availableWidth = container.clientWidth;
+
+    h1.style.display = prevDisplay;
+    h1.style.whiteSpace = prevWhiteSpace;
+
+    if (!textWidth || !availableWidth) return;
+
+    const fitted = (availableWidth / textWidth) * TEST_SIZE * FILL_RATIO;
+    h1.style.fontSize = fitted + 'px';
+    container.style.setProperty('--name-fit-size', fitted + 'px');
+}
+
+function setupHeroNameFit() {
+    const run = () => fitHeroName();
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(run);
+    } else {
+        run();
+    }
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(run, 120);
+    });
+}
+
+// ============================================================
+// Hero photo — grayscale by default, full color only in a small
+// circle following the cursor (the reference's hover effect).
+// Implemented with a second, identical <img> layered on top and
+// masked to a radial-gradient circle that tracks the pointer via
+// CSS custom properties — no canvas or extra libraries needed.
+// ============================================================
+function setupPhotoColorReveal() {
+    const photo = document.querySelector('.hero2-photo');
+    if (!photo || window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+
+    photo.addEventListener('mousemove', (e) => {
+        const rect = photo.getBoundingClientRect();
+        photo.style.setProperty('--reveal-x', `${e.clientX - rect.left}px`);
+        photo.style.setProperty('--reveal-y', `${e.clientY - rect.top}px`);
+    });
+    photo.addEventListener('mouseleave', () => {
+        photo.style.setProperty('--reveal-x', '-9999px');
+        photo.style.setProperty('--reveal-y', '-9999px');
+    });
+}
+
+// ============================================================
 // Hero stat count-up — the single orchestrated load animation.
 // Runs once, on load, never re-triggers.
 // ============================================================
@@ -171,6 +250,9 @@ function setupWorkFilters() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    fitHeroName(); // must run before setupHeroIntro() so GSAP captures the correctly-sized text
+    setupHeroNameFit(); // re-fits on resize, and again once web fonts finish swapping in
+    setupPhotoColorReveal();
     animateStats();
     setupHeroIntro();
     setupScrollReveal();

@@ -56,7 +56,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background: var(--hero-bg); /* was var(--bg) — the old dark-theme
+    color left over from before the site became fully light-themed.
+    The nav sits on body with 85% opacity, so the dark color was
+    bleeding through the remaining 15%, showing up as a visible
+    gray "box" behind the nav that doesn't exist in the reference. */
   color: var(--text);
   font-family: var(--font-body);
   font-size: 16px;
@@ -363,8 +367,11 @@ img { max-width: 100%; display: block; }
   z-index: 2;
   text-align: center;
   /* Reserve space below the text line for the photo to overflow
-     into, without colliding with the role/description text underneath. */
-  padding-bottom: clamp(11rem, 30vw, 22rem);
+     into, without colliding with the role/description text underneath.
+     Tied to --name-fit-size (set by fitHeroName() in script.js) so the
+     reserved space always scales with however big the text actually
+     ends up, instead of an independent guess that can mismatch it. */
+  padding-bottom: calc(var(--name-fit-size, 6rem) * 3.9);
 }
 .hero2-name-row-h1 {
   position: relative; /* the photo positions against THIS, not the
@@ -376,11 +383,16 @@ img { max-width: 100%; display: block; }
   margin: 0;
   font-weight: 400;
   white-space: normal;
+  font-size: clamp(2.4rem, 8.5vw, 6.2rem); /* fallback only — script.js
+    measures the actual rendered width and sets a precise inline
+    font-size so the name really does span the full container width,
+    which a guessed clamp() value can't guarantee across every name
+    length and screen size */
 }
 .name-part {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.4rem, 8.5vw, 6.2rem);
+  font-size: inherit;
   line-height: 0.95;
   letter-spacing: -0.02em;
 }
@@ -392,31 +404,51 @@ img { max-width: 100%; display: block; }
 
 /* The photo is NOT a layout sibling pushing the name apart — it's
    an independently positioned layer that overlaps the lower half
-   of the name text, same as the reference. This is the actual fix:
-   flexbox was the wrong tool for "text flows together as one line,
-   image floats on top independently" — that needs absolute
-   positioning against a relatively-positioned wrapper instead. */
+   of the name text, same as the reference. Sized as a multiple of
+   --name-fit-size so it scales proportionally with the name text
+   instead of via an independent vw guess that can drift out of
+   proportion at different screen widths. */
 .hero2-photo {
   position: absolute;
   top: 42%;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(220px, 30vw, 400px);
+  width: calc(var(--name-fit-size, 6rem) * 4.3);
   z-index: 3;
-  pointer-events: none;
+  /* Bottom fade lives on the container so it applies uniformly to
+     both stacked images below, instead of needing a fragile
+     multi-layer mask-composite on each image individually. */
+  -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
 }
 .hero2-photo-img {
   width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 20px 30px rgba(20, 22, 26, 0.18));
-  -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+}
+.hero2-photo-img-gray {
+  position: relative;
+  filter: grayscale(1) drop-shadow(0 20px 30px rgba(20, 22, 26, 0.18));
+}
+.hero2-photo-img-color {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Hidden everywhere except a small circle following the cursor —
+     script.js updates --reveal-x/--reveal-y on mousemove. Off-screen
+     by default so nothing shows until the pointer is actually over it. */
+  -webkit-mask-image: radial-gradient(circle 90px at var(--reveal-x, -9999px) var(--reveal-y, -9999px), black 55%, transparent 100%);
+  mask-image: radial-gradient(circle 90px at var(--reveal-x, -9999px) var(--reveal-y, -9999px), black 55%, transparent 100%);
 }
 @media (max-width: 620px) {
-  .hero2-photo { width: clamp(160px, 46vw, 260px); }
+  .hero2-photo { width: calc(var(--name-fit-size, 4rem) * 4.6); }
+  /* Touch devices have no hover/cursor — show full color instead of
+     leaving the photo permanently grayscale with no way to reveal it */
+  .hero2-photo-img-gray { display: none; }
+  .hero2-photo-img-color { position: relative; inset: auto; -webkit-mask-image: none; mask-image: none; }
 }
+
 
 .hero2-body {
   max-width: var(--max-wide);
