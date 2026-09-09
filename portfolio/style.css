@@ -48,7 +48,10 @@
   --font-mono: 'IBM Plex Mono', monospace;
 
   --max: 860px;
-  --max-wide: 1120px;
+  --max-wide: 1600px; /* was 1120px — far narrower than typical wide
+    viewports, which left the huge empty side margins visible in the
+    reference comparison. The reference uses nearly the full viewport
+    width with only small edge padding. */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -255,7 +258,8 @@ img { max-width: 100%; display: block; }
 }
 .nav2-links {
   display: flex;
-  gap: 2rem;
+  gap: 3.25rem; /* was 2rem — reference has noticeably more breathing
+    room between each nav item */
   font-size: 0.92rem;
   font-weight: 500;
 }
@@ -366,12 +370,14 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 2;
   text-align: center;
-  /* Reserve space below the text line for the photo to overflow
-     into, without colliding with the role/description text underneath.
-     Tied to --name-fit-size (set by fitHeroName() in script.js) so the
-     reserved space always scales with however big the text actually
-     ends up, instead of an independent guess that can mismatch it. */
-  padding-bottom: calc(var(--name-fit-size, 6rem) * 3.9);
+  /* Was calc(var(--name-fit-size) * 3.9) — reserving space equal to
+     almost the photo's FULL height, which pushed the role text and
+     social buttons below the fold entirely. The reference doesn't
+     reserve space for the photo at all: it overlaps the row below
+     without pushing it away, since that row's center column is
+     empty anyway (role text is on the left, socials on the right).
+     Just a small fixed gap here now. */
+  padding-bottom: 1.5rem;
 }
 .hero2-name-row-h1 {
   position: relative; /* the photo positions against THIS, not the
@@ -407,14 +413,21 @@ img { max-width: 100%; display: block; }
    of the name text, same as the reference. Sized as a multiple of
    --name-fit-size so it scales proportionally with the name text
    instead of via an independent vw guess that can drift out of
-   proportion at different screen widths. */
+   proportion at different screen widths. Reduced from *4.3 — that
+   was tall/wide enough to horizontally overlap the role text and
+   push the whole page height past the fold. */
 .hero2-photo {
   position: absolute;
   top: 42%;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(var(--name-fit-size, 6rem) * 4.3);
-  z-index: 3;
+  width: calc(var(--name-fit-size, 6rem) * 3);
+  max-width: 340px;
+  z-index: 3; /* above the name text within this same stacking
+    context — hero2-body (a later sibling, also z-index: 2) still
+    paints on top of this whole section wherever they overlap, by
+    normal DOM-order stacking rules, so the role text and social
+    buttons stay protected regardless of this value */
   /* Bottom fade lives on the container so it applies uniformly to
      both stacked images below, instead of needing a fragile
      multi-layer mask-composite on each image individually. */
@@ -442,7 +455,7 @@ img { max-width: 100%; display: block; }
   mask-image: radial-gradient(circle 90px at var(--reveal-x, -9999px) var(--reveal-y, -9999px), black 55%, transparent 100%);
 }
 @media (max-width: 620px) {
-  .hero2-photo { width: calc(var(--name-fit-size, 4rem) * 4.6); }
+  .hero2-photo { width: calc(var(--name-fit-size, 4rem) * 2.8); max-width: 220px; }
   /* Touch devices have no hover/cursor — show full color instead of
      leaving the photo permanently grayscale with no way to reveal it */
   .hero2-photo-img-gray { display: none; }

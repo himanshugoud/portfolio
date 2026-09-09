@@ -190,7 +190,6 @@ function setupHeroIntro() {
     const photo = document.querySelector('.hero2-photo');
     const left = document.querySelector('.hero2-left');
     const socialLinks = document.querySelectorAll('.hero2-social a');
-    const stats = document.querySelector('.hero2-stats');
     if (!outline || !solid) return;
 
     // Start the photo well below its final position so it has real
@@ -208,8 +207,7 @@ function setupHeroIntro() {
       .from(solid, { opacity: 0, x: 40, duration: 0.6 }, '<')
       .from(socialLinks, { opacity: 0, x: 24, duration: 0.4, stagger: 0.08 }, '-=0.25')
       .from(left, { opacity: 0, y: 24, duration: 0.5 }, '-=0.2')
-      .to(photo, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, '-=0.15')
-      .from(stats, { opacity: 0, y: 20, duration: 0.5 }, '-=0.3');
+      .to(photo, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, '-=0.15');
 }
 
 // ============================================================
