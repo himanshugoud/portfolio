@@ -228,7 +228,7 @@ img { max-width: 100%; display: block; }
 .nav2-inner {
   max-width: var(--max-wide);
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1rem clamp(1.5rem, 4.5vw, 4.5rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -258,8 +258,8 @@ img { max-width: 100%; display: block; }
 }
 .nav2-links {
   display: flex;
-  gap: 3.25rem; /* was 2rem — reference has noticeably more breathing
-    room between each nav item */
+  gap: 5rem; /* was 3.25rem — still noticeably tighter than the
+    reference's spacing */
   font-size: 0.92rem;
   font-weight: 500;
 }
@@ -361,7 +361,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
   background: var(--hero-bg);
-  padding: 4rem 1.5rem 4.5rem;
+  padding: 4rem clamp(1.5rem, 4.5vw, 4.5rem) 4.5rem;
   text-align: center;
   overflow: hidden;
 }
@@ -421,8 +421,16 @@ img { max-width: 100%; display: block; }
   top: 42%;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(var(--name-fit-size, 6rem) * 3);
-  max-width: 340px;
+  /* Height-driven sizing (was width-driven with object-fit:contain) —
+     that capped out at a fairly short box because the source photo's
+     own aspect ratio is wider than tall. Sizing by height + cropping
+     the sides with object-fit:cover instead lets the photo actually
+     reach down toward the role text like the reference, independent
+     of the source image's natural proportions. */
+  height: calc(var(--name-fit-size, 6rem) * 3.7);
+  width: calc(var(--name-fit-size, 6rem) * 2.85);
+  max-height: 480px;
+  max-width: 330px;
   z-index: 3; /* above the name text within this same stacking
     context — hero2-body (a later sibling, also z-index: 2) still
     paints on top of this whole section wherever they overlap, by
@@ -436,9 +444,10 @@ img { max-width: 100%; display: block; }
 }
 .hero2-photo-img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: top center;
 }
 .hero2-photo-img-gray {
   position: relative;
@@ -455,7 +464,12 @@ img { max-width: 100%; display: block; }
   mask-image: radial-gradient(circle 90px at var(--reveal-x, -9999px) var(--reveal-y, -9999px), black 55%, transparent 100%);
 }
 @media (max-width: 620px) {
-  .hero2-photo { width: calc(var(--name-fit-size, 4rem) * 2.8); max-width: 220px; }
+  .hero2-photo {
+    height: calc(var(--name-fit-size, 4rem) * 3.4);
+    width: calc(var(--name-fit-size, 4rem) * 2.6);
+    max-height: 280px;
+    max-width: 215px;
+  }
   /* Touch devices have no hover/cursor — show full color instead of
      leaving the photo permanently grayscale with no way to reveal it */
   .hero2-photo-img-gray { display: none; }
@@ -577,7 +591,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
   background: var(--hero-bg);
-  padding: 5rem 1.5rem 6rem;
+  padding: 5rem clamp(1.5rem, 4.5vw, 4.5rem) 6rem;
 }
 .work2-head {
   max-width: var(--max-wide);
@@ -812,7 +826,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
   background: var(--hero-bg);
-  padding: 1rem 1.5rem 6rem;
+  padding: 1rem clamp(1.5rem, 4.5vw, 4.5rem) 6rem;
 }
 .log2-head {
   max-width: var(--max-wide);
@@ -919,7 +933,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
   background: var(--hero-bg);
-  padding: 1rem 1.5rem 6rem;
+  padding: 1rem clamp(1.5rem, 4.5vw, 4.5rem) 6rem;
 }
 .about2-head {
   max-width: var(--max-wide);
@@ -1012,7 +1026,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
   background: var(--hero-bg);
-  padding: 6rem 1.5rem 5rem;
+  padding: 6rem clamp(1.5rem, 4.5vw, 4.5rem) 5rem;
   text-align: center;
 }
 .cta2-badge {
@@ -1212,7 +1226,7 @@ button.work2-media {
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1.5rem;
+  padding: 4rem clamp(1.5rem, 4.5vw, 4.5rem);
 }
 .lightbox.is-open { display: flex; }
 
